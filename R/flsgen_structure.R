@@ -18,14 +18,14 @@
 # You should have received a copy of the GNU General Public License
 # along with rflsgen  If not, see <https://www.gnu.org/licenses/>.
 
-#' Landscape structure generator
+#' Landscape structure solver
 #'
-#' @description Generate landscape structures satisfying user targets
+#' @description Find landscape structures satisfying user targets
 #'
 #' @import rJava
 #'
-#' @details The input user targets must be either specified as a JSON-formatted string
-#'  (targets_str parameter) or as a JSON file (target_file parameter)
+#' @details The input user targets must be either specified as a JSON-formatted
+#'  string (targets_str parameter) or as a JSON file (target_file parameter).
 #'
 #' @param targets_str JSON-formatted string describing user targets
 #' @param targets_file JSON file describing user targets
@@ -66,7 +66,7 @@
 #'   }
 #' @export
 #'
-flsgen_structure <- function(targets_str, targets_file, nb_solutions=1, time_limit = 0, search_strategy="DEFAULT") {
+flsgen_structure <- function(targets_str, targets_file, nb_solutions=1, time_limit = 60, search_strategy="DEFAULT") {
   # Check arguments
   if (missing(targets_str)) {
     if (missing(targets_file)) {
@@ -76,6 +76,12 @@ flsgen_structure <- function(targets_str, targets_file, nb_solutions=1, time_lim
   } else {
     if (!missing(targets_file)) {
       stop("Either targets_str or targets_file must be used in generate_landscape_structure function to specify user targets, not both")
+    }
+    if (inherits(targets_str, "FlsgenLandscapeTargets")) {
+      for (i in 1:length(targets_str$classes)) {
+        targets_str$classes[[i]] <- unclass(targets_str$classes[[i]])
+      }
+      targets_str <- jsonlite::toJSON(unclass(targets_str), auto_unbox = TRUE)
     }
   }
   checkmate::assert_int(nb_solutions, lower=1)
@@ -103,15 +109,19 @@ flsgen_structure <- function(targets_str, targets_file, nb_solutions=1, time_lim
     struct <- .jcall(solver, "Lorg/flsgen/solver/LandscapeStructure;", "findSolution", as.integer(time_limit))
     if (is.null(struct)) {
       if (length(structs_json) == 0) {
-        if (time_limit > 0) {
+        if (time_limit > 0 && as.numeric(difftime(Sys.time(), start_sol_time, units = "s")) >= time_limit) {
+          .jgc()
           stop("User targets could not be satisfied under the specified time limit")
         } else {
+          .jgc()
           stop("User targets cannot be satisfied")
         }
       } else {
-        if (time_limit > 0) {
+        if (time_limit > 0 && as.numeric(difftime(Sys.time(), start_sol_time, units = "s")) >= time_limit) {
+          .jgc()
           stop("No more solutions satisfying user targets were found under the specified time limit")
         } else {
+          .jgc()
           stop("No more solutions satisfying user targets exist")
         }
       }
@@ -123,5 +133,6 @@ flsgen_structure <- function(targets_str, targets_file, nb_solutions=1, time_lim
   if (nb_solutions > 1) {
     cat("All landscape structures found in", as.numeric(difftime(Sys.time(), start_time, units = "s")), "s\n", sep = " ")
   }
+  .jgc()
   return(structs_json)
 }

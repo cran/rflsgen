@@ -2,13 +2,13 @@
 % Please edit documentation in R/flsgen_structure.R
 \name{flsgen_structure}
 \alias{flsgen_structure}
-\title{Landscape structure generator}
+\title{Landscape structure solver}
 \usage{
 flsgen_structure(
   targets_str,
   targets_file,
   nb_solutions = 1,
-  time_limit = 0,
+  time_limit = 60,
   search_strategy = "DEFAULT"
 )
 }
@@ -28,11 +28,11 @@ flsgen_structure(
 A vector of JSON-formatted landscape structures satisfying user targets.
 }
 \description{
-Generate landscape structures satisfying user targets
+Find landscape structures satisfying user targets
 }
 \details{
-The input user targets must be either specified as a JSON-formatted string
- (targets_str parameter) or as a JSON file (target_file parameter)
+The input user targets must be either specified as a JSON-formatted
+ string (targets_str parameter) or as a JSON file (target_file parameter).
 }
 \examples{
   \dontrun{
