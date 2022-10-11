@@ -1,6 +1,6 @@
 ---
-title: "Use case 2: Exploring correlations between landscape indices"
-output: html_document
+title: "Use Case 2: Exploring correlations between landscape indices"
+output: pdf_document
 vignette: >
   %\VignetteIndexEntry{Use case 2: Exploring correlations between landscape indices}
   %\VignetteEngine{knitr::rmarkdown_notangle}
@@ -126,10 +126,12 @@ library(landscapemetrics)
 library(Makurhini)
 
 df <- expand.grid("mesh_target" = mesh_seq, "n" = repeats)
-df$file <- paste0(basepath, df$mesh_target, "/shape_mesh_", df$mesh_target, "__", df$n, ".shp")
+df$file <- paste0(basepath, df$mesh_target, "/shape_mesh_", df$mesh_target, "__",
+                  df$n, ".shp")
 df$mesh <- sapply(seq(1, nrow(df), by=1), function(i) {
   cat(paste("compute MESH for", i, "\n"))
-  path <- paste0(basepath, df[i,]$mesh_target, "/mesh_", df[i,]$mesh_target, "__", df[i,]$n, ".tif")
+  path <- paste0(basepath, df[i,]$mesh_target, "/mesh_", df[i,]$mesh_target, "__",
+                 df[i,]$n, ".tif")
   lsm_c_mesh(raster(path))[2,]$value
 })
 
@@ -153,7 +155,7 @@ df$PC <- sapply(seq(1, nrow(df), by=1), function(i) {
 
 ## Plotting the result and evaluating the correlation
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, dpi = 72}
 library(ggplot2)
 
 make_fig <- function() {

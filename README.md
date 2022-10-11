@@ -1,8 +1,21 @@
-# rflsgen
+# rflsgen <img src="man/figures/logo.png" align="right" width="140px"/>
+## Neutral Landscape Generator with Targets on Landscape Indices
 
-[![R-CMD-check](https://github.com/dimitri-justeau/rflsgen/actions/workflows/r.yml/badge.svg)](https://github.com/dimitri-justeau/rflsgen/actions/workflows/r.yml) [![codecov](https://codecov.io/gh/dimitri-justeau/rflsgen/branch/master/graph/badge.svg?token=HXA7L85S4F)](https://app.codecov.io/gh/dimitri-justeau/rflsgen) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/051b1240fc8e47c3926421ec99c95c8f)](https://app.codacy.com/gh/dimitri-justeau/rflsgen/dashboard?utm_source=github.com&utm_medium=referral&utm_content=dimitri-justeau/rflsgen&utm_campaign=Badge_Grade) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5717637.svg)](https://doi.org/10.5281/zenodo.5717637) [![CRAN version](https://www.r-pkg.org/badges/version/rflsgen)](https://CRAN.R-project.org/package=rflsgen) [![Downloads](https://cranlogs.r-pkg.org/badges/rflsgen)](https://CRAN.R-project.org/package=rflsgen) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![R-CMD-check-Ubunut](https://github.com/dimitri-justeau/rflsgen/actions/workflows/R-CMD-check-ubuntu.yaml/badge.svg)](https://github.com/dimitri-justeau/rflsgen/actions)
+[![R-CMD-check-Windows](https://github.com/dimitri-justeau/rflsgen/actions/workflows/R-CMD-check-windows.yaml/badge.svg)](https://github.com/dimitri-justeau/rflsgen/actions)
+[![R-CMD-check-MacOS](https://github.com/dimitri-justeau/rflsgen/actions/workflows/R-CMD-check-macos.yaml/badge.svg)](https://github.com/dimitri-justeau/rflsgen/actions)
+[![codecov](https://codecov.io/gh/dimitri-justeau/rflsgen/branch/master/graph/badge.svg?token=HXA7L85S4F)](https://app.codecov.io/gh/dimitri-justeau/rflsgen)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/051b1240fc8e47c3926421ec99c95c8f)](https://app.codacy.com/gh/dimitri-justeau/rflsgen/dashboard?utm_source=github.com&utm_medium=referral&utm_content=dimitri-justeau/rflsgen&utm_campaign=Badge_Grade)
+[![DOI](https://zenodo.org/badge/418379079.svg)](https://zenodo.org/badge/latestdoi/418379079)
+[![CRAN version](https://www.r-pkg.org/badges/version/rflsgen)](https://CRAN.R-project.org/package=rflsgen)
+[![Downloads](https://cranlogs.r-pkg.org/badges/rflsgen)](https://CRAN.R-project.org/package=rflsgen)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+<p id="logo-credit" align="right">Logo by Camille Salmon</p>
 
 `rflsgen` is the R distribution of [`flsgen`](https://github.com/dimitri-justeau/flsgen), a neutral landscape generator that allows users to set targets on landscape indices. It first relies on [Choco-solver](https://choco-solver.org/) to identify landscape structure satisfying user targets, then uses a stochastic algorithm to produce landscape rasters.
+
+For more details and tutorials, please visit `rflsgen`'s website: https://dimitri-justeau.github.io/rflsgen/
 
   * [Download and installation](#down)
   * [Tutorial](#tuto)
@@ -11,6 +24,7 @@
     * [Landscape raster generation](#generate)
     * [Masking](#masking)
     * [Extracting structures from existing landscape](#extract)
+  * [Citation](#citation)
 
 ## Download and installation <a name="down"></a>
 
@@ -46,7 +60,7 @@ plot(terrain)
 
 ### Generating landscape structures from targets <a name="structure"></a>
 
-Say that we want to generate a landscape structure for a 200x200 landscape containing three landscape classes (plus a background class), with the following user targets:
+Say that we want to generate a landscape structure for a 200x200 landscape containing three landscape classes (plus a non focal class), with the following user targets:
 
 | Class | NP      | AREA        | CA           | MESH | PLAND |
 | ----- |---------| ----------- |------------- |------| ----- |
@@ -176,3 +190,12 @@ Instead of generating landscape structure from targets, it is also possible to e
 ```r
 struct <- flsgen_extract_structure_from_raster("existing_raster.tif", focal_classes=c(0, 1))
 ```
+
+## Citation <a name="citation"></a>
+
+Please cite the *rflsgen R* package when using it in publications.
+
+> Justeau-Allaire, D., Blanchard, G., Ibanez, T., Lorca, X., Vieilledent, G. & Birnbaum, P. (2022).
+> Fragmented landscape generator (flsgen): A neutral landscape generator with control of landscape
+> structure and fragmentation indices. Methods in Ecology and Evolution, 00, 1– 9.
+> https://doi.org/10.1111/2041-210X.13859
