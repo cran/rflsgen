@@ -155,7 +155,7 @@ df$PC <- sapply(seq(1, nrow(df), by=1), function(i) {
 
 ## Plotting the result and evaluating the correlation
 
-```{r, eval=FALSE, dpi = 72}
+```{r, eval=FALSE}
 library(ggplot2)
 
 make_fig <- function() {
